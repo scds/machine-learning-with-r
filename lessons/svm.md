@@ -1,15 +1,12 @@
 ---
 layout: default
-title: Lesson 3a - Sub-lesson Name
-nav_order: 1
-
-# Notice the two lines below. Since this is a sub-lesson of a lesson (Lesson 3a), it's parent is lesson 3 and it's grandparent is Lessons. Make sure to include this if you decide to have sub-lessons. 
-parent: Lesson 3 - Lesson Name # Don't forget to change! Should be the title of your parent lesson.
-grand_parent: Lessons 
+title: Linear Regression
+nav_order: 2
+parent: Lessons
 ---
 
 {: .no_toc}  
-# Lesson 3a - Lesson Name 
+# Lesson 2 - Lesson Name 
 
 A small description about the lesson.
 

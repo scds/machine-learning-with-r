@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Lesson 4 - Lesson Name
-nav_order: 4
+title: Logistic Regression
+nav_order: 2
 parent: Lessons
 ---
 
 {: .no_toc}  
-# Lesson 4 - Lesson Name 
+# Lesson 2 - Lesson Name 
 
 A small description about the lesson.
 

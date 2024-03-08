@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lesson 2 - Lesson Name
+title: Random Forest Classification Approach
 nav_order: 2
 parent: Lessons
 ---

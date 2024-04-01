@@ -1,6 +1,6 @@
 ---
 layout: default
-title: K-means Clustering
+title: K-Means Clustering
 nav_order: 1
 parent: Lessons
 ---

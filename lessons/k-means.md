@@ -4,61 +4,31 @@ title: K-Means Clustering
 nav_order: 1
 parent: Lessons
 ---
-<!-- 
-This page is an example lesson template.
-Add, edit, or remove any content below for the workshop in question. -->
 
-<!-- Putting a {: .no_toc} above a header removes it from the table of contents -->
+<!-- TODO -->
+<img src="assets/img/LRWB2.png" alt="Workshop Title Slide" width="100%">
 
-{: .no_toc}  
-# Lesson 1 - Lesson Name 
+# Machine Learning with R: K-Means Clustering
 
-A small description about the lesson.
+<!-- TODO : Check this description over -->
+Logistic regression in R programming is a classification algorithm used to find the probably of event success and event failure. This workshop will cover an introduction to logistic regression, followed by hands-on training in how to conduct a logistic regression in R, model training, testing accuracy, and how to interpret and visualize results.
 
-<!-- This is your table of contents. You don't need to touch it, it automatically creates it when you add or remove headers. If you do not want a header to be included, put {: .no_toc } above the header line, as you can see above with Lesson 1 - Lesson Name. Make sure that there's also an empty line above {: .no_toc }... Markdown is picky about this :( -->
-<details markdown="block" class="toc">
-  <summary>
-    Table of Contents
-  </summary>
-  {: .text-delta }
-- TOC
-{:toc}
+## Workshop Offerings
+
+<details markdown="1" open>
+<summary>March 2024</summary>
+<iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/05d3b122-5db5-4fe0-957b-2a00a676cc30/public"></iframe>
+[View original here.](https://echo360.ca/media/05d3b122-5db5-4fe0-957b-2a00a676cc30/public)
+
+<embed src="assets/docs/KMeansSlidesJan2024.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/KMeansSlidesJan2024.pdf)
 </details>
 
-<!-- Here are your learning objectives. Just like in the introduction, but more specific for this lesson. -->
-## Lesson Objectives
-- A learning objective.
-- Second learning objective.
-- Another learning objective.
+<details markdown="1">
+<summary>October 2022</summary>
+<iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/e878d90e-d572-4533-ab6c-2ce8b47ee65b/public"></iframe>
+[View the original here.](https://echo360.ca/media/e878d90e-d572-4533-ab6c-2ce8b47ee65b/public) 
 
-<!-- A video for your lesson (if applicable) -->
-## Lesson Video
-The following video demonstrates each of the steps outlined below in text.
-
-<!-- Place iframe of video here -->
-<iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/a65689c0-c35c-4f33-9c12-f0ac97883f54/public?autoplay=false&automute=false"></iframe>
-[View original here.](https://echo360.ca/media/a65689c0-c35c-4f33-9c12-f0ac97883f54/public?autoplay=false&automute=false)
-
-<!-- Text content format for your lessons if you don't want to rely on videos, or want to provide another format of learning consumption. -->
-## Sub-Topic
-
-Include a text version of your topic here.
-
-## Another sub-topic
-
-Include text here.
-
-## Another sub-topic
-
-Include text here.
-
-<!-- Summarize your learning objectives here. It acts as a reminder to the learner about what they just learned, as well as a checklist for you to make sure you covered everything you wished to cover. -->
-## Key Points / Summary
-
-- Remind the student about what they just learned.
-- You can also note down any key information to keep in mind.
-
-<!-- You can add your additional resources for a specific lesson here, however there is also an additional resources page alongside the conclusion at the end of the workshop website. -->
-## Additional Resources (optional)
-
-- Here, you can list some additional resources the student can access to learn more about this lesson.
+<embed src="assets/docs/KMeansSlidesOct2022.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/KMeansSlidesOct2022.pdf)
+</details>

@@ -5,48 +5,30 @@ nav_order: 2
 parent: Lessons
 ---
 
-{: .no_toc}  
-# Lesson 2 - Lesson Name 
+<!-- TODO -->
+<img src="assets/img/LRWB2.png" alt="Workshop Title Slide" width="100%">
 
-A small description about the lesson.
+# Machine Learning with R: Linear Regression
 
-<details markdown="block" class="toc">
-  <summary>
-    Table of Contents
-  </summary>
-  {: .text-delta }
-- TOC
-{:toc}
+<!-- TODO : Check this description over -->
+Logistic regression in R programming is a classification algorithm used to find the probably of event success and event failure. This workshop will cover an introduction to logistic regression, followed by hands-on training in how to conduct a logistic regression in R, model training, testing accuracy, and how to interpret and visualize results.
+
+## Workshop Offerings
+
+<details markdown="1" open>
+<summary>March 2024</summary>
+<iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/89dd7672-a26e-49df-93b7-b0d3c6249116/public"></iframe>
+[View the original here.](https://echo360.ca/media/89dd7672-a26e-49df-93b7-b0d3c6249116/public)
+
+<embed src="assets/docs/LinearSlidesFeb2024.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/LinearSlidesFeb2024.pdf)
 </details>
 
-## Lesson Objectives
-- A learning objective.
-- Second learning objective.
-- Another learning objective.
+<details markdown="1">
+<summary>October 2022</summary>
+<iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/89dd7672-a26e-49df-93b7-b0d3c6249116/public"></iframe>
+[View the original here.](https://echo360.ca/media/89dd7672-a26e-49df-93b7-b0d3c6249116/public)
 
-## Lesson Video
-The following video demonstrates each of the steps outlined below in text.
-
-<iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/a65689c0-c35c-4f33-9c12-f0ac97883f54/public?autoplay=false&automute=false"></iframe>
-[View original here.](https://echo360.ca/media/a65689c0-c35c-4f33-9c12-f0ac97883f54/public?autoplay=false&automute=false)
-
-## Sub-Topic
-
-Include a text version of your topic here.
-
-## Another sub-topic
-
-Include text here.
-
-## Another sub-topic
-
-Include text here.
-
-## Key Points / Summary
-
-- Remind the student about what they just learned.
-- You can also note down any key information to keep in mind.
-
-## Additional Resources (optional)
-
-- Here, you can list some additional resources the student can access to learn more about this lesson.
+<embed src="assets/docs/LinearSlidesOct2022.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/LinearSlidesOct2022.pdf)
+</details>

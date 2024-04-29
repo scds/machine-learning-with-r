@@ -4,8 +4,7 @@ title: Random Forest Classification Approach
 nav_order: 5
 ---
 
-<!-- TODO -->
-<img src="../assets/img/randomforest.png" alt="Workshop Title Slide" width="100%">
+<img src="assets/img/randomforest.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Random Forest Classification Approach
 
@@ -22,8 +21,8 @@ Amirreza is a Master’s student in the Electrical and Computer Engineering depa
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/7b643684-a49d-4229-a7ac-ed1d45d309a3/public"></iframe>
 [View original here.](https://echo360.ca/media/7b643684-a49d-4229-a7ac-ed1d45d309a3/public)
 
-<embed src="../assets/docs/RandomForestSlidesMar2024.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](../assets/docs/RandomForestSlidesMar2024.pdf)
+<embed src="assets/docs/RandomForestSlidesMar2024.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/RandomForestSlidesMar2024.pdf)
 </details>
 
 <details markdown="1">
@@ -37,7 +36,7 @@ This event was run in collaboration with the [YWCA’s Uplift Program](https://w
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/dcab4112-0199-47ce-a4cf-5453c2a82ec5/public"></iframe>
 [View the original here.](https://echo360.ca/media/dcab4112-0199-47ce-a4cf-5453c2a82ec5/public)
 
-<embed src="../assets/docs/RandomForestSlidesJan2023.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](../assets/docs/RandomForestSlidesJan2023.pdf)
+<embed src="assets/docs/RandomForestSlidesJan2023.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/RandomForestSlidesJan2023.pdf)
 </details>
 

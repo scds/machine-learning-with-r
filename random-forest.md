@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Random Forest Classification Approach
-nav_order: 2
-parent: Lessons
+nav_order: 5
 ---
 
 <!-- TODO -->

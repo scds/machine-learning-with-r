@@ -1,11 +1,9 @@
 ---
 layout: default
 title: Logistic Regression
-nav_order: 2
-parent: Lessons
+nav_order: 4
 ---
 
-<!-- TODO -->
 <img src="../assets/img/logisticregression.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Logistic Regression

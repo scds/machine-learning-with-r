@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Linear Regression
-nav_order: 2
-parent: Lessons
+nav_order: 3
 ---
 
 <!-- TODO -->

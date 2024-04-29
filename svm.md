@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Support Vector Machine Classification
-nav_order: 2
-parent: Lessons
+nav_order: 6
 ---
 
 <img src="../assets/img/MLR-SVM.png" alt="Workshop Title Slide" width="100%">

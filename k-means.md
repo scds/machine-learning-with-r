@@ -1,8 +1,7 @@
 ---
 layout: default
 title: K-Means Clustering
-nav_order: 1
-parent: Lessons
+nav_order: 2
 ---
 
 <!-- TODO -->

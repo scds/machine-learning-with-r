@@ -6,7 +6,7 @@ parent: Lessons
 ---
 
 <!-- TODO -->
-<img src="assets/img/LRWB2.png" alt="Workshop Title Slide" width="100%">
+<img src="../assets/img/LRWB2.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: K-Means Clustering
 
@@ -20,8 +20,8 @@ Logistic regression in R programming is a classification algorithm used to find 
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/05d3b122-5db5-4fe0-957b-2a00a676cc30/public"></iframe>
 [View original here.](https://echo360.ca/media/05d3b122-5db5-4fe0-957b-2a00a676cc30/public)
 
-<embed src="assets/docs/KMeansSlidesJan2024.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](assets/docs/KMeansSlidesJan2024.pdf)
+<embed src="../assets/docs/KMeansSlidesJan2024.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](../assets/docs/KMeansSlidesJan2024.pdf)
 </details>
 
 <details markdown="1">
@@ -29,6 +29,6 @@ Logistic regression in R programming is a classification algorithm used to find 
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/e878d90e-d572-4533-ab6c-2ce8b47ee65b/public"></iframe>
 [View the original here.](https://echo360.ca/media/e878d90e-d572-4533-ab6c-2ce8b47ee65b/public) 
 
-<embed src="assets/docs/KMeansSlidesOct2022.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](assets/docs/KMeansSlidesOct2022.pdf)
+<embed src="../assets/docs/KMeansSlidesOct2022.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](../assets/docs/KMeansSlidesOct2022.pdf)
 </details>

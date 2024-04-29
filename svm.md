@@ -4,7 +4,7 @@ title: Support Vector Machine Classification
 nav_order: 6
 ---
 
-<img src="../assets/img/MLR-SVM.png" alt="Workshop Title Slide" width="100%">
+<img src="assets/img/MLR-SVM.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Support Vector Machine Classification
 
@@ -23,6 +23,6 @@ This event was run in collaboration with the [YWCA’s Uplift Program](https://w
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/127f1d5d-606d-4360-8eac-517e9ae37b65/public"></iframe>
 [View original here.](https://echo360.ca/media/127f1d5d-606d-4360-8eac-517e9ae37b65/public)
 
-<embed src="../assets/docs/SVMSlidesNov2022.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](../assets/docs/SVMSlidesNov2022.pdf)
+<embed src="assets/docs/SVMSlidesNov2022.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/SVMSlidesNov2022.pdf)
 </details>

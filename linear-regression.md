@@ -5,7 +5,7 @@ nav_order: 3
 ---
 
 <!-- TODO -->
-<img src="../assets/img/linearregression.png" alt="Workshop Title Slide" width="100%">
+<img src="assets/img/linearregression.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Linear Regression
 
@@ -22,8 +22,8 @@ Humayun Kabir is a master’s student in Health Research Methodology at the Depa
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/06e1cc14-f083-448b-9a68-9447085cbd9a/public"></iframe>
 [View the original here.](https://echo360.ca/media/06e1cc14-f083-448b-9a68-9447085cbd9a/public)
 
-<embed src="../assets/docs/LinearSlidesFeb2024.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](../assets/docs/LinearSlidesFeb2024.pdf)
+<embed src="assets/docs/LinearSlidesFeb2024.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/LinearSlidesFeb2024.pdf)
 </details>
 
 <details markdown="1">
@@ -37,6 +37,6 @@ This event was run in collaboration with the [YWCA’s Uplift Program](https://w
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/c0bc56c4-4e4e-4001-9290-767d60a55e0b/public"></iframe>
 [View the original here.](https://echo360.ca/media/c0bc56c4-4e4e-4001-9290-767d60a55e0b/public)
 
-<embed src="../assets/docs/LinearSlidesOct2022.pdf" style="border:none;" width="100%" height="466px">
-[Download as PDF.](../assets/docs/LinearSlidesOct2022.pdf)
+<embed src="assets/docs/LinearSlidesOct2022.pdf" style="border:none;" width="100%" height="466px">
+[Download as PDF.](assets/docs/LinearSlidesOct2022.pdf)
 </details>

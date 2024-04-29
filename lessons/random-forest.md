@@ -6,7 +6,7 @@ parent: Lessons
 ---
 
 <!-- TODO -->
-<img src="../assets/img/LRWB2.png" alt="Workshop Title Slide" width="100%">
+<img src="../assets/img/randomforest.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Random Forest Classification Approach
 

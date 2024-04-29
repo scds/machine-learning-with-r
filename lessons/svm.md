@@ -5,8 +5,7 @@ nav_order: 2
 parent: Lessons
 ---
 
-<!-- TODO -->
-<img src="../assets/img/LRWB2.png" alt="Workshop Title Slide" width="100%">
+<img src="../assets/img/MLR-SVM.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Support Vector Machine Classification
 

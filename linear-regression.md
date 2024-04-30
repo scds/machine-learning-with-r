@@ -4,7 +4,6 @@ title: Linear Regression
 nav_order: 3
 ---
 
-<!-- TODO -->
 <img src="assets/img/linearregression.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: Linear Regression

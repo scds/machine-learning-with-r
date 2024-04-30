@@ -25,8 +25,6 @@ Humayun Kabir is a master’s student in Health Research Methodology at the Depa
 [Download as PDF.](assets/docs/LogisticSlidesMar2024.pdf)
 </details>
 
-
-
 <details markdown="1">
 
 **Facilitator Bio**  

@@ -4,12 +4,10 @@ title: K-Means Clustering
 nav_order: 2
 ---
 
-<!-- TODO -->
 <img src="assets/img/kmeans.png" alt="Workshop Title Slide" width="100%">
 
 # Machine Learning with R: K-Means Clustering
 
-<!-- TODO : Check this description over -->
 Clustering is an unsupervised machine learning approach for finding subgroups of observations within a data set. This workshop will introduce participants to the theoretical part of the most common clustering method, k-means clustering. Afterwards, participants will gain hands-on experience in how to conduct K-means clustering in R, as well as how to interpret and visualize their results.
 
 ## Workshop Offerings

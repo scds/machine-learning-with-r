@@ -20,6 +20,10 @@ Presentation by Shaila Jamal, DASH Support Assistant and PhD Candidate in Earth,
 
 This event was run in collaboration with the [YWCA’s Uplift Program](https://www.ywcahamilton.org/skills-development-and-training/uplift/), which supports women and non-binary people re-skilling to enter the tech industry.
 
+**Workshop Files**  
+\- [DASH-Workshop- Support Vector Machine.rsv](data/DASH-Workshop-%20Support%20Vector%20Machine.Rmd)  
+\- [telecom_customer_churn_big.csv](data/telecom_customer_churn_big.csv)
+
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/127f1d5d-606d-4360-8eac-517e9ae37b65/public"></iframe>
 [View original here.](https://echo360.ca/media/127f1d5d-606d-4360-8eac-517e9ae37b65/public)
 

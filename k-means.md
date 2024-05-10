@@ -18,6 +18,10 @@ Clustering is an unsupervised machine learning approach for finding subgroups of
 **Facilitator Bio**  
 Amirreza is a Master’s student in the Electrical and Computer Engineering department of McMaster University with 8 years of experience in different programming languages.  
 
+**Workshop Files**  
+\- [kmeans_clustering.Rmd](data/kmeans_clustering.Rmd)  
+\- [Wine.csv](data/Wine.csv)
+
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/05d3b122-5db5-4fe0-957b-2a00a676cc30/public"></iframe>
 
 [View original here.](https://echo360.ca/media/05d3b122-5db5-4fe0-957b-2a00a676cc30/public)
@@ -33,6 +37,9 @@ Amirreza is a Master’s student in the Electrical and Computer Engineering depa
 Presentation by Shaila Jamal, DASH Support Assistant and PhD Candidate in Earth, Environment, and Society.
 
 This event was run in collaboration with the [YWCA’s Uplift Program](https://www.ywcahamilton.org/skills-development-and-training/uplift/), which supports women and non-binary people re-skilling to enter the tech industry.
+
+**Workshop Files**  
+The files for this workshop are no longer available.
 
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/e878d90e-d572-4533-ab6c-2ce8b47ee65b/public"></iframe>
 [View the original here.](https://echo360.ca/media/e878d90e-d572-4533-ab6c-2ce8b47ee65b/public) 

@@ -1,0 +1,306 @@
+---
+title: "DASH Workshop - SVM Classification"
+author: "Shaila Jamal"
+date: "07/11/2022"
+output:
+  pdf_document: default
+---
+Recommended readings:
+
+1. https://www.edureka.co/blog/support-vector-machine-in-r/
+2. https://www.simplilearn.com/tutorials/data-science-tutorial/svm-in-r
+3. https://www.listendata.com/2017/01/support-vector-machine-in-r-tutorial.html
+4. https://www.datacamp.com/tutorial/support-vector-machines-r
+5. https://medium.com/analytics-vidhya/support-vector-machine-in-r-for-beginners-94564aa2bb74
+6. https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47
+7. https://www.geeksforgeeks.org/classifying-data-using-support-vector-machinessvms-in-r/
+8. https://uc-r.github.io/svm
+9. https://stackoverflow.com/questions/7782501/how-to-interpret-predict-result-of-svm-in-r
+10.https://rpubs.com/cliex159/865583
+
+
+The purpose of this practice is to use svm classification to predict the 'Customer Status' in the telecom customer dataset downloaded from 
+
+At the beginning, let's clear the environment with the following codes:
+
+```{r}
+rm(list=ls())
+```
+
+# Loading packages
+
+```{r}
+library(caret)
+library(e1071)
+library(dplyr)
+library(ggplot2)
+library(corrplot)
+library(GGally)
+```
+
+# Uploading the Dataset
+
+```{r}
+dataset <- read.csv("telecom_customer_churn.csv")
+```
+
+# Exploring the database: data type of the variables
+
+```{r}
+str(dataset)
+summary(dataset)
+```
+
+Delete the variables those won't be used in model. For example, item name, serial number, address, etc.
+
+```{r}
+dataset <- select(dataset, -c(Customer.ID, City, Zip.Code, Latitude, Longitude, Churn.Category, Churn.Reason))
+
+```
+
+
+```{r}
+str(dataset)
+# summary(dataset)
+```
+
+converting character variables into factor:
+
+```{r}
+dataset[,c(1, 3, 7:8, 10:12, 14:24, 31)] <- lapply(dataset[,c(1, 3, 7:8, 10:12, 14:24, 31)] , factor)
+
+# checking the data type
+str(dataset)
+```
+
+## Preprocessing of numerical and categorical predictors
+
+For SVM, if you have categorical variables as predictors, you need to create dummy variables for the categories in the variable. 
+
+For numeric variables, it is required to scale the predictor variables. If we do not standardize our variables to comparable ranges, the variable with the largest range will completely dominate in the computation of the kernel matrix. For example, we have two variables: X1 and X2. Values of variable X1 lies between 0 and 100 whereas values of X2 lies in range of 100 and 10000. In this case, variable X2 would dominate variable X1. The z-score and min-max are the two popular methods to standardize variables. [Ref: https://www.listendata.com/2017/01/support-vector-machine-in-r-tutorial.html]
+
+
+Just for showing an example of SVM standardization, I am creating a dataset that contains our outcome variable - Customer.Status, 4 numeric variables - Age, Monthly.Charge, Total.Refunds, and Total.Revenue, and 3 categorical variables - Gender, Online.Security and Internet.Type. 
+
+I selected these variables just to show an example. For variable selection, always explore their interactions with the outcome variable.
+
+```{r}
+dataset <- select(dataset, c(Customer.Status, Age, Gender, Online.Security, Internet.Type, Monthly.Charge, Total.Refunds, Total.Revenue))
+```
+
+In the table, we can see that there are some blank spaces (in categorical variables Online.Security and Internet.Type) which is not depicted as NA. As in general, we try to delete missing values for model building, we will be at first converting these blank spaces into NA and then delete (as otherwise, na.omit() function won't work)
+
+```{r}
+dataset[dataset==""] <- NA
+```
+
+removing NA/ missing values
+
+```{r}
+dataset <- na.omit(dataset)
+```
+
+Checking the summary of the dataset
+
+```{r}
+summary(dataset)
+```
+
+Exploring the non-standardized data:
+
+
+```{r}
+ggplot(data=dataset, aes(x=Customer.Status, y=Monthly.Charge)) +
+  geom_jitter(height=0.2) +
+  theme_classic()
+```
+```{r}
+ggplot(data=dataset, aes(x=Age, y=Monthly.Charge, color = Customer.Status)) +
+  geom_jitter(height=0.2) +
+  theme_classic()
+```
+
+
+Converting the categorical variables into dummy variables and include them in the dataset
+
+```{r}
+dataset <- dataset %>%
+  transmute(Customer.Status,
+            Age,
+            Male = ifelse(Gender=="Male", 1, 0),
+            Online.Security = ifelse(Online.Security == "Yes", 1, 0),
+            Internet.Type.Cable = ifelse(Internet.Type == "Cable", 1, 0),
+            Internet.Type.DSL = ifelse(Internet.Type == "DSL", 1, 0),
+            Internet.Type.Fiber.Optic = ifelse(Internet.Type == "Fiber Optic", 1, 0), 
+            Monthly.Charge,
+            Total.Refunds,
+            Total.Revenue
+            )
+```
+
+Standardizing the numeric variables:
+
+```{r}
+dataset[, c(2, 7:9)] = scale(dataset[, c(2, 7:9)])
+```
+
+
+plot the outcome variable to explore it's distribution
+
+```{r}
+plot(dataset$Customer.Status)
+```
+
+
+# Building classification model. 
+# Setting up the training (80%) and testing (30%) datasets. 
+
+```{r}
+set.seed(502)
+
+data.partition <- createDataPartition(dataset$Customer.Status, p=0.8, list=F)
+train <- dataset[data.partition,]
+test <- dataset[-data.partition,]
+```
+
+
+Exploring the training data with the predictor variables
+
+```{r}
+ggplot(data=train, aes(x=Customer.Status, y=Monthly.Charge)) +
+  geom_jitter(height=0.2) +
+  theme_classic()
+```
+
+```{r}
+ggplot(data=train, aes(x=Age, y=Monthly.Charge, color = Customer.Status)) +
+  geom_jitter(height=0.2) +
+  theme_classic()
+```
+
+The distribution shows that we will need a non-linear kernel to specify the model. We will be using the radial kernel as this is the most widel used kernel function. 
+
+Finding the tuning parameters:
+Note: below is an example. You can try more values to check. How to tune parameters: https://rdrr.io/cran/e1071/man/tune.html 
+
+```{r}
+set.seed(3409)
+tune.obj <- tune.svm(Customer.Status~., data = train, gamma = 2^(-1:1), cost = 2^(2:4))
+
+summary(tune.obj)
+plot(tune.obj)
+```
+
+
+# svm model
+# Building svm clasification model using the training data with all variables in the dataset
+
+```{r}
+
+svm.model <- svm(Customer.Status ~ ., 
+                 data=train,
+                 kernel = "radial", cost = 4, gamma = 0.5,
+                 probability = TRUE
+                 )
+
+summary(svm.model)
+
+```
+
+# Testing the model on test data and accuracy check
+
+```{r}
+
+# predicting _customer status_ in test data based on the training model
+test$predict <- predict(svm.model, test) 
+
+# Confusion matrix
+con_matrix <- confusionMatrix(test$Customer.Status, test$predict)
+print(con_matrix)
+
+```
+
+
+### Workshop code????
+
+
+
+
+# For visualizing purposes,
+
+If we want to display the classification on a two dimensional plot, we need to estimate the model in term of two independent variable. Let's select the monthly charge and total revenue in the data set. 
+
+```{r}
+data.viz <- select(dataset, c(Customer.Status, Monthly.Charge, Total.Revenue))
+```
+
+
+```{r}
+set.seed(502)
+
+data.viz.partition <- createDataPartition(data.viz$Customer.Status, p=0.8, list=F)
+train.viz <- data.viz[data.viz.partition,]
+test.viz <- data.viz[-data.viz.partition,]
+```
+
+
+You can also visualize your data. Below is an example of this. 
+
+```{r Visualize Factors}
+set.seed(123)
+ggplot(data=train.viz, aes(x=Total.Revenue, y=Monthly.Charge, color=Customer.Status)) +
+  geom_point() +
+  theme_classic()
+```
+`
+Finding the tuning parameters:
+
+```{r}
+set.seed(3409)
+tune.obj.viz <- tune.svm(Customer.Status~., data = train.viz, gamma = 2^(-1:1), cost = 2^(2:4))
+
+summary(tune.obj.viz)
+plot(tune.obj.viz)
+```
+
+
+model with two independent variables
+```{r}
+
+data_viz.svm.model <- svm(Customer.Status ~ ., 
+                 data=train.viz,
+                 kernel = "radial", cost = 16, gamma = 2,
+                 # preProcess = c("center","scale"),
+                 probability = TRUE
+                 )
+
+summary(data_viz.svm.model)
+
+```
+
+# Testing the model on test data and accuracy check
+
+```{r}
+# predicting _Customer Status_ in test data based on the training model
+test$predict <- predict(data_viz.svm.model, test.viz) 
+
+con_matrix <- confusionMatrix(test$Customer.Status, test$predict)
+print(con_matrix)
+
+
+```
+
+
+We can plot the data for train and test dataset.
+
+# train data
+
+```{r}
+plot(data_viz.svm.model, data = train.viz)
+```
+# test data
+
+```{r}
+plot(data_viz.svm.model, data = test.viz)
+```
+

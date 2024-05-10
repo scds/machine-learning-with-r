@@ -1,0 +1,247 @@
+---
+title: "DASH Workshop - Random Classification"
+author: "Shaila Jamal"
+date: "21/02/2023"
+output:
+  pdf_document: default
+---
+Recommended readings:
+
+1. https://www.section.io/engineering-education/introduction-to-random-forest-in-machine-learning/
+2. https://www.edureka.co/blog/random-forest-classifier/
+3. https://towardsdatascience.com/random-forest-in-r-f66adf80ec9
+4. https://www.listendata.com/2014/11/random-forest-with-r.html
+
+
+The purpose of this practice is to use random forest classification to predict the 'Customer Status' in the telecom customer dataset downloaded from Kaggle.
+
+At the beginning, let's clear the environment with the following codes:
+
+```{r}
+rm(list=ls())
+```
+
+# Loading packages
+
+```{r}
+library(foreign)
+library(tidytext)
+library(readr)
+library(haven)
+library(ggthemes)
+library(reshape2)
+library(tidyverse)
+library(randomForest)
+library(caret)
+library(ggplot2)
+library(ranger)
+library(fastshap)
+library(e1071)
+```
+
+# Uploading the Dataset
+
+```{r}
+dataset <- read.csv("telecom_customer_churn.csv")
+```
+
+# Exploring the database: data type of the variables
+
+```{r}
+str(dataset)
+summary(dataset)
+```
+
+Delete the variables those won't be used in model. For example, item name, serial number, address, etc.
+
+```{r}
+dataset <- select(dataset, -c(Customer.ID, City, Zip.Code, Latitude, Longitude, Churn.Category, Churn.Reason))
+
+```
+
+
+```{r}
+str(dataset)
+# summary(dataset)
+```
+
+converting character variables into factor:
+
+```{r}
+dataset[,c(1, 3, 7:8, 10:12, 14:24, 31)] <- lapply(dataset[,c(1, 3, 7:8, 10:12, 14:24, 31)] , factor)
+
+# checking the data type
+str(dataset)
+```
+
+## Preprocessing of numerical and categorical predictors
+
+For random forest (rf) classification, if you have categorical variables as predictors, you need to create dummy variables for the categories in the variable. 
+
+
+Just for showing an example of rf classification, I am creating a dataset that contains our outcome variable - Customer.Status, 4 numeric variables - Age, Monthly.Charge, Total.Refunds, and Total.Revenue, and 4 categorical variables - Gender, Married, Online.Security and Internet.Type. 
+
+I selected these variables just to show an example. You can use the entire dataset with proper pre-processing of data. For variable selection, always explore their interactions with the outcome variable.
+
+```{r}
+dataset <- select(dataset, c(Customer.Status, Age, Gender, Married, Online.Security, Internet.Type, Monthly.Charge, Total.Refunds, Total.Revenue))
+```
+
+In the table, we can see that there are some blank spaces (in categorical variables Online.Security and Internet.Type) which is not depicted as NA. As in general, we try to delete missing values for model building, we will be at first converting these blank spaces into NA and then delete (as otherwise, na.omit() function won't work)
+
+```{r}
+dataset[dataset==""] <- NA
+```
+
+removing NA/ missing values
+
+```{r}
+dataset <- na.omit(dataset)
+```
+
+Checking the summary of the dataset
+
+```{r}
+summary(dataset)
+```
+
+Exploring the data:
+
+
+```{r}
+ggplot(data=dataset, aes(x=Customer.Status, y=Monthly.Charge)) +
+  geom_jitter(height=0.2) +
+  theme_classic()
+```
+
+
+```{r}
+ggplot(data=dataset, aes(x=Age, y=Monthly.Charge, color = Customer.Status)) +
+  geom_jitter(height=0.2) +
+  theme_classic()
+```
+
+
+Converting the categorical variables into dummy variables and include them in the dataset
+
+```{r}
+dataset <- dataset %>%
+  transmute(Customer.Status,
+            Age,
+            Male = ifelse(Gender=="Male", 1, 0),
+            Married = ifelse(Married=="Yes", 1, 0),
+            Online.Security = ifelse(Online.Security == "Yes", 1, 0),
+            Internet.Type.Cable = ifelse(Internet.Type == "Cable", 1, 0),
+            Internet.Type.DSL = ifelse(Internet.Type == "DSL", 1, 0),
+            Internet.Type.Fiber.Optic = ifelse(Internet.Type == "Fiber Optic", 1, 0), 
+            Monthly.Charge,
+            Total.Refunds,
+            Total.Revenue
+            )
+```
+
+
+
+plot the outcome variable to explore it's distribution
+
+```{r}
+plot(dataset$Customer.Status)
+```
+
+
+# Building classification model. 
+
+
+# Setting up the training (80%) and testing (20%) datasets. 
+
+```{r}
+set.seed(502)
+
+data.partition <- createDataPartition(dataset$Customer.Status, p=0.8, list=F)
+train <- dataset[data.partition,]
+test <- dataset[-data.partition,]
+```
+
+
+Finding the tuning parameters:
+
+```{r}
+customRF <- list(type = "Classification", library = "randomForest", loop = NULL)
+customRF$parameters <- data.frame(parameter = c("mtry", "ntree"), class = rep("numeric", 2), label = c("mtry", "ntree"))
+customRF$grid <- function(x, y, len = NULL, search = "grid") {}
+customRF$fit <- function(x, y, wts, param, lev, last, weights, classProbs, ...) {
+  randomForest(x, y, mtry = param$mtry, ntree=param$ntree, ...)
+}
+customRF$predict <- function(modelFit, newdata, preProc = NULL, submodels = NULL)
+   predict(modelFit, newdata)
+customRF$prob <- function(modelFit, newdata, preProc = NULL, submodels = NULL)
+   predict(modelFit, newdata, type = "prob")
+customRF$sort <- function(x) x[order(x[,1]),]
+customRF$levels <- function(x) x$classes
+```
+
+
+```{r  include=FALSE, eval=FALSE}
+# train model
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+tunegrid <- expand.grid(.mtry=c(1:10), .ntree=c(100, 150, 200, 300, 400, 500, 1000, 1500, 2000))
+set.seed(1)
+custom <- train(Customer.Status~., data=train, method=customRF, tuneGrid=tunegrid, trControl=control) #metric=metric,
+summary(custom)
+print(custom)
+plot(custom)
+```
+
+Exporting the tuning parameter as an image:
+```{r}
+jpeg(file="Tuning_parameter.jpeg", width=1800, height=1050)
+
+plot(custom)
+
+dev.off()
+```
+
+# rf model
+# Building rf clasification model using the training data
+
+```{r}
+set.seed(4543)
+#data(data_veh)
+rf <- randomForest(Customer.Status ~ ., data=train, mtry = 2, ntree=1500, keep.forest=TRUE,
+                          importance=TRUE)
+varImpPlot(rf)
+
+summary(rf)
+```
+Interpretation:
+Mean Decrease Accuracy - represents how much removing each variable reduces the accuracy of the model or How much the model accuracy decreases if we drop that variable
+Mean Decrease Gini - Measure of variable importance based on the Gini impurity index used for the calculation of splits in trees.
+
+# Evaluating the model: Testing the model and accuracy check
+
+Check this resource: https://datascience.stackexchange.com/questions/61957/why-does-removal-of-some-features-improve-the-performance-of-random-forests-on-s
+
+```{r}
+prediction <-predict(rf, test)
+```
+
+
+```{r}
+confusionMatrix(prediction, test$Customer.Status)
+```
+
+### Workshop code????
+
+
+Variable importance:
+
+```{r}
+var_imp <- varImp(rf)
+```
+
+Exporting the variable imporatnce into an excel workbook:
+```{r}
+write.csv(var_imp, "C:/Users/shail/Downloads/Importance.csv", row.names = TRUE)
+```
+
+

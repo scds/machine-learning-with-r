@@ -1,0 +1,263 @@
+---
+title: "Logistic Regression"
+author: Shaila
+date: 3-11-2022
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+At the beginning, let's clear the environment with the following codes:
+
+```{r}
+rm(list=ls())
+```
+
+Loading the required library:
+
+```{r}
+library(tidyverse) #Family of packages for data manipulation, analysis, and visualization
+library(ggplot2) # package to develop plots
+library(caret)
+```
+
+## Useful Resources:
+
+1. Understanding the basics of logistic regression: https://towardsdatascience.com/machine-learning-basics-logistic-regression-890ef5e3a272
+2. Machine learning with R (logistics regression): https://towardsdatascience.com/machine-learning-with-r-logistic-regression-152ec20351db
+3. Application of logistics regression with R: https://www.statology.org/logistic-regression-in-r/
+4. Checking the accuracy of the logistics regression: https://rstudio-pubs-static.s3.amazonaws.com/153750_24869b0fb71f4b9f9a6c3bc6747bb12d.html
+or https://rpubs.com/jpmurillo/153750
+
+
+## Exercise
+
+In this project we will analyze a dataset of students' performance in exams and produce some predictions on the completion of "test.preparation.course" on Test Data based on some variables. 
+
+Note: Data has been downloaded from https://www.kaggle.com/datasets/spscientist/students-performance-in-exams
+
+
+Loading the data:
+```{r}
+dataset <- read.csv("exams.csv")
+```
+
+
+## Checking the data type and data conversion
+
+We can see that there are 1000 observations and 8 variables in the dataset. Now, let's check the datatype:
+
+```{r}
+str(dataset)
+```
+We can see that gender, race.ethnicity, parental.level.of.education, lunch and test.preparation.course - these variables are "character" type. For model building purpose, they need to converted into "factor" type or categorical variable. 
+
+```{r}
+dataset[,c(1:5)] <- lapply(dataset[,c(1:5)] , factor)
+
+# checking the data type
+str(dataset)
+```
+
+## Checking and dealing with missing values
+
+Let's check whether there is missing value ("na") in the dataset. We can do it with the following formula. 
+
+```{r}
+apply(dataset, 2, function(x) any(is.na(x)))
+```
+Here in this dataset, we don't have any missing values. However, if missing value exists, there are several ways to deal with them. Most easiest way to deal with missing data is remove that particular observation. However if there is too many missing values, it may not be an option. Sometimes, researchers replace the missing values with mean/ median or mode values based on how the data is distributed. You can check these resource on how to deal with missing data/ values in R.:
+
+1. https://uc-r.github.io/missing_values
+2. https://www.r-bloggers.com/2021/04/handling-missing-values-in-r/
+3. https://medium.com/coinmonks/dealing-with-missing-data-using-r-3ae428da2d17
+
+
+Also, check for outliers. If there are outliers in the data, remove them. You might find this resource helpful: https://universeofdatascience.com/how-to-remove-outliers-from-data-in-r/
+
+
+Now let's devide the data into training and testing dataset. Please note that you may have separate files for training and testing datasets. In that case, you need to check for data type, data type conversion, missing value adjustments for each of the file separately. The test and train dataset have to have same data type and categories for the prediction to work. 
+
+## Dividing the dataset into training and testing dataset. 
+
+We are partitioning it by 80% training data and 20% testing data.
+
+```{r}
+set.seed(123)
+partition.data <- dataset$test.preparation.course %>% 
+                  createDataPartition(p = 0.8, list = FALSE)
+train.data  <- dataset[partition.data, ]
+test.data <- dataset[-partition.data, ]
+```
+
+## Exploring the dataset:
+
+Before developing the model, we can explore the data to see the inherent pattern within the dataset. For example,
+
+# Average of the numeric variables by their test preparation course completion level
+
+```{r}
+train.data %>% 
+  group_by(test.preparation.course) %>% 
+  summarise(across(c("math.score", "reading.score", "writing.score"), mean))
+```
+
+# Percentages for categorical variables
+
+```{r}
+(prop.table(table(train.data$test.preparation.course, train.data$gender), 2)*100)  
+(prop.table(table(train.data$test.preparation.course, train.data$race.ethnicity), 2)*100)
+(prop.table(table(train.data$test.preparation.course, train.data$parental.level.of.education), 2)*100)
+(prop.table(table(train.data$test.preparation.course, train.data$lunch), 2)*100)
+
+# Note:
+# We multiplied proportional table (prop.table) with 100 to get the exact percentages.
+# 2 has been used to get the column percentages. In case you want to see the row percentages, use 1. 
+```
+
+# Do it yourself exercise: What observations/ insights we can draw from the exploratory analysis:
+
+1.
+2.
+3.
+and so
+
+
+You can also visualize your data. Below is an example of this. 
+
+```{r Visualize Factors}
+set.seed(123)
+ggplot(data=train.data, aes(x=reading.score, y=test.preparation.course, color=gender)) +
+  geom_jitter(height=0.2) +
+  theme_classic() +
+  ylab("Test Preparation Course Completion")
+```
+
+Check the dummy coding:
+
+```{r}
+set.seed(1232)
+contrasts(train.data$test.preparation.course)
+```
+You can see if we use the default coding in R, it will actually model the probability/likelihood of not completing the test preparation courses. This is a default setting and usually take alphabetical order in defining the "reference". However, we want to estimate the probability/ likelihood completing the test preparation course based on given predictor variables. 
+
+In order to change the reference level, you can either change the contrasts, or relevel the factor. For example:
+
+```{r}
+#Change the contrast by releveling the factor
+train.data$test.preparation.course = relevel(train.data$test.preparation.course, ref = "none")
+contrasts(train.data$test.preparation.course)
+```
+Here is a resource to understand this more elaborately: https://marissabarlaz.github.io/portfolio/contrastcoding/
+
+Don't forgot to do it for your testing data, as we will be checking the prediction accuracy based on the same reference.
+
+```{r}
+test.data$test.preparation.course = relevel(test.data$test.preparation.course, ref = "none")
+contrasts(test.data$test.preparation.course)
+```
+
+
+## Developing model based on train data
+
+Below is the code to run a logistic regression
+
+```{r}
+set.seed(345)
+train.model <- glm(test.preparation.course~., data = train.data, family = binomial)
+
+# I am using all variables in the table. If you want to build your model with only specific variables, you can either create a separate dataset only including those variables (need to do it for both training and testing dataset) or you can use "+" to specify the variable like this: test.preparation.course ~ gender + race.ethnicity + math.score, family = binomial, data = train.data)
+
+summary(train.model)
+```
+
+Developing the model by considering the significant variables only. 
+```{r}
+set.seed(2098)
+train.model_1 <- glm(test.preparation.course ~ gender + race.ethnicity + parental.level.of.education + math.score + reading.score + writing.score, 
+                   data = train.data, family = binomial)
+
+summary(train.model_1)
+```
+Comparing the AIC (the smaller the better) I am using the second model. Note: if you are using the second model, make sure while making prediction on the test data, you are not considering the deleted variables.
+
+## Interpretations of coefficients:
+
+Some examples: 
+1. gendermale is positive (reference: female) - indicating that being male increases the probability of completing test preparation courses compared to female
+2. race.ethnicity had 5 levels. R calculated the model by fixing group A as a reference. For group D, coefficient estimate value is negative (b=-1.33266), indicating the student being from group D have a lower probability of completing test preparation courses compared to group A. In other words, Being at group D, decreases the probability of completing test preparation courses compared to group A.
+3. writing.score has a positive value. Therefore, higher scores in writing increases the probability of completing test preparation courses.
+
+
+## Dot it yourself exercise: Interpret the other coefficients based on you understanding
+
+4. 
+5.
+6.
+ and so on
+
+
+
+
+## Sharing the the workshop code????
+
+
+
+## Determining the odds ratio only
+
+```{r}
+set.seed(234)
+exp(coef(train.model))
+```
+# Interpretations of the odds-ratio:
+
+Some examples:
+
+1. gendermale (categorical variable) has a odds ratio of 11.55. Here, reference is female. Therefore, the odds of completing test preparation courses is 11.55 times higher for males that the female
+2. writing.score (a continuous variable) has a odds ratio of 1.33. Therefore, one unit (mark/ score) increase in writing score increases the odds of completing test preparation courses increases by 1.33 times.
+
+Interpreting odds ratio less than 1 is little bit tricky. For example, 
+
+3. For race.ethnicity group D (a categorical variable), odds ratio is 0.26. It is usually interpreted as calculating the change is odds percentages = (0.26 - 1)*100 = -74%.In can be interpreted as being in group D decreases the odds of completing test preparation courses by 74% compared those who who belong to group A. 
+4. For math.score (continuous variable), odds ration is 0.87. Change is odds percentages = (0.87 - 1)*100 = -13%. This indicates one unit (mark/ score) increase in math score is associated with a 13% decrease in odd of completing test preparation courses . 
+
+a useful resource: https://www.statology.org/interpret-odds-ratio-less-than-1/ 
+
+## Dot it yourself exercise: Interpret the other odds ratio based on you understanding
+
+5.
+6.
+7.
+
+and so on
+
+
+## Prediction based on the model (from the training data) using the test data.
+
+```{r}
+test.data$test.probabilities <- train.model_1 %>% predict(test.data, type = "response")
+
+head(test.data$test.probabilities)
+```
+
+Predicting classes. 
+
+```{r}
+test.data$predicted.classes <- ifelse(test.data$test.probabilities > 0.5, "completed", "none")
+head(test.data$predicted.classes)
+```
+
+## Accuracy testing:
+
+There are lots of model fit diaognotics and tests for accuracy checking. You can explore this resource for a better understanding: https://www.r-bloggers.com/2015/08/evaluating-logistic-regression-models/
+
+
+Here, we are doing one of the simplest method. 
+Proportion of correctly classified observations:
+
+```{r}
+mean(test.data$predicted.classes == test.data$test.preparation.course)
+```
+The classification prediction accuracy is about 76.5%, which is good. The misclassification error rate is 23.5%. 

@@ -18,6 +18,11 @@ Random Forest is an ensemble machine learning technique used for both classifica
 **Facilitator Bio**  
 Amirreza is a Master’s student in the Electrical and Computer Engineering department of McMaster University with 8 years of experience in different programming languages. 
 
+**Workshop Files**  
+\- [Random_forest_workshop.Rmd](Random_forest_workshop.Rmd)  
+\- [test.csv](test.csv)  
+\- [train.csv](train.csv)
+
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/7b643684-a49d-4229-a7ac-ed1d45d309a3/public"></iframe>
 [View original here.](https://echo360.ca/media/7b643684-a49d-4229-a7ac-ed1d45d309a3/public)
 
@@ -32,6 +37,10 @@ Amirreza is a Master’s student in the Electrical and Computer Engineering depa
 Presentation by Shaila Jamal, DASH Support Assistant and PhD Candidate in Earth, Environment, and Society.
 
 This event was run in collaboration with the [YWCA’s Uplift Program](https://www.ywcahamilton.org/skills-development-and-training/uplift/), which supports women and non-binary people re-skilling to enter the tech industry.
+
+**Workshop Files**  
+\- [DASH-Workshop- Random Forest Classification.Rmd](data/DASH-Workshop-%20Random%20Forest%20Classification.Rmd)  
+\- [telecom_customer_churn.csv](data/telecom_customer_churn.csv)
 
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/dcab4112-0199-47ce-a4cf-5453c2a82ec5/public"></iframe>
 [View the original here.](https://echo360.ca/media/dcab4112-0199-47ce-a4cf-5453c2a82ec5/public)

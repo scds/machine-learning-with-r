@@ -18,6 +18,9 @@ This workshop will cover an introduction to linear regression with single and mu
 **Facilitator Bio**  
 Humayun Kabir is a master’s student in Health Research Methodology at the Department of Health Research Methods, Evidence, and Impact at McMaster University. He provides support to the quantitative research data at the DASH, McMaster University Library.
 
+**Workshop Files**  
+\- [Google Colab Link](https://colab.research.google.com/drive/1PKxey0_YzdSrc_CcRPwh_Cd3JDglOi74) (recommended) or [DASH_W02.ipynb](data/DASH_W02.ipynb). 
+
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/06e1cc14-f083-448b-9a68-9447085cbd9a/public"></iframe>
 [View the original here.](https://echo360.ca/media/06e1cc14-f083-448b-9a68-9447085cbd9a/public)
 
@@ -32,6 +35,9 @@ Humayun Kabir is a master’s student in Health Research Methodology at the Depa
 Presentation by Shaila Jamal, DASH Support Assistant and PhD Candidate in Earth, Environment, and Society.
 
 This event was run in collaboration with the [YWCA’s Uplift Program](https://www.ywcahamilton.org/skills-development-and-training/uplift/), which supports women and non-binary people re-skilling to enter the tech industry.
+
+**Workshop Files**  
+The files for this workshop are no longer available.
 
 <iframe height="416" width="100%" allowfullscreen frameborder=0 src="https://echo360.ca/media/c0bc56c4-4e4e-4001-9290-767d60a55e0b/public"></iframe>
 [View the original here.](https://echo360.ca/media/c0bc56c4-4e4e-4001-9290-767d60a55e0b/public)

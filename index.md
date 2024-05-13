@@ -11,6 +11,7 @@ has_children: false
 {%- assign workshops = site.pages 
     | where_exp: "item", "item.grand_parent == null"
     | where_exp: "item", "item.parent == null"
+    | where_exp: "item", "item.layout != null"
     | sort: "title" 
 -%}
 
